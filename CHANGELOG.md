@@ -41,6 +41,4 @@
 
 ## 0.1.0-ALPHA
 - Initial project version.
-- Added base project structure and configs.
-- Added provider model, repository, service and web-service.
 - JUnit tests included.

@@ -51,6 +51,12 @@
 
 ## 2019-10-07
 
+### 0.1.0.3
+- Changed project IDE of Eclipse to IntelliJ.
+
+### 0.1.0.2
+- Changed project IDE of Eclipse to IntelliJ.
+
 ### 0.1.0.1
 - Initial project version.
 - Added basic structures and configurations.
