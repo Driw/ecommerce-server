@@ -1,5 +1,8 @@
 package ord.diverproject.ecommerce.config;
 
+import org.springframework.stereotype.Component;
+
+@Component("ecommerceSettings")
 public class DefaultEcommerceSettings implements EcommerceSettings
 {
 	private String loggerFolderPath;

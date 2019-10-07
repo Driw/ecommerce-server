@@ -1,6 +1,10 @@
 package ord.diverproject.ecommerce.logger;
 
-public interface EcommerceLoggers
+import ord.diverproject.ecommerce.Ecommerce;
+import org.diverproject.scarlet.logger.LoggerLanguage;
+import org.diverproject.scarlet.logger.Loggers;
+
+public interface EcommerceLoggers extends Loggers<EcommerceLogger>
 {
 	public EcommerceLogger get(Class<?> classz);
 	public EcommerceLogger get(String name);

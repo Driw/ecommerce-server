@@ -8,8 +8,10 @@ import org.diverproject.scarlet.logger.ScarletLoggers;
 
 import ord.diverproject.ecommerce.EcommerceRuntimeException;
 import ord.diverproject.ecommerce.language.EcommerceLanguage;
+import org.springframework.stereotype.Component;
 
-public class DefaultEcommerceLoggers implements Loggers<EcommerceLogger>
+@Component("ecommerceLoggers")
+public class DefaultEcommerceLoggers implements EcommerceLoggers
 {
 	private static final String DEFAULT_NAME = "default";
 	private static final ScarletLoggers SCARLET_LOGGER = ScarletLoggers.getInstance();
