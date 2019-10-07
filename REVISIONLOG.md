@@ -51,6 +51,10 @@
 
 ## 2019-10-07
 
+### 0.1.0.4
+- Changed project java version of 13 to 10.
+- Updated maven project settings including spring dependencies.
+
 ### 0.1.0.3
 - Changed project IDE of Eclipse to IntelliJ.
 
