@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="EclipseModuleManager">
+    <conelement value="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER" />
+    <src_description expected_position="0">
+      <src_folder value="file://$MODULE_DIR$/../../scarlet/scarlet-base/src/main/java" expected_position="0" />
+      <src_folder value="file://$MODULE_DIR$/../../scarlet/scarlet-base/src/main/resources" expected_position="1" />
+      <src_folder value="file://$MODULE_DIR$/../../scarlet/scarlet-base/src/test/java" expected_position="2" />
+      <src_folder value="file://$MODULE_DIR$/../../scarlet/scarlet-base/src/test/resources" expected_position="3" />
+    </src_description>
+  </component>
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_13_PREVIEW">
+    <output url="file://$MODULE_DIR$/../../scarlet/scarlet-base/target/classes" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../../scarlet/scarlet-base">
+      <sourceFolder url="file://$MODULE_DIR$/../../scarlet/scarlet-base/src/test/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../scarlet/scarlet-base/src/test/resources" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../scarlet/scarlet-base/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../scarlet/scarlet-base/src/main/resources" type="java-resource" />
+    </content>
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="jdk" jdkName="13" jdkType="JavaSDK" />
+    <orderEntry type="module-library">
+      <library name="junit5">
+        <CLASSES>
+          <root url="jar://$APPLICATION_HOME_DIR$/lib/junit.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+  </component>
+</module>
