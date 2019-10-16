@@ -7,19 +7,59 @@
 	<artifactId>ecommerce</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
+
 	<name>E-commerce</name>
 	<description>A E-commerce system example with Scarlet Libraries and Spring Framework</description>
+	<url>http://ecommerce.diverproject.org/</url>
+
+	<organization>
+		<name>Diver Project</name>
+		<url>https://diverproject.org</url>
+	</organization>
+
+	<issueManagement>
+		<system>Github</system>
+		<url>https://github.com/diverproject/ecommerce-server/issues</url>
+	</issueManagement>
 
 	<properties>
 		<java.version>10</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<junit.jupiter.versions>5.4.0</junit.jupiter.versions>
+		<junit.platform.versions>1.4.1</junit.platform.versions>
+		<maven.build.version>3.1</maven.build.version>
 		<spring.version>5.1.10.RELEASE</spring.version>
 		<spring.boot.version>2.1.6.RELEASE</spring.boot.version>
 		<hibernate.version>5.4.5.Final</hibernate.version>
-		<maven.compiler.source>${java.version}</maven.compiler.source>
-		<maven.compiler.target>${java.version}</maven.compiler.target>
 	</properties>
 
 	<dependencies>
+		<!-- JUnit -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>${junit.jupiter.versions}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>${junit.jupiter.versions}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.platform</groupId>
+			<artifactId>junit-platform-launcher</artifactId>
+			<version>${junit.platform.versions}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+
 		<!-- Spring Boot -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -87,6 +127,20 @@
 			<artifactId>commons-lang3</artifactId>
 			<version>3.9</version>
 		</dependency>
+
+		<!-- Scarlet -->
+		<dependency>
+			<groupId>org.diverproject</groupId>
+			<artifactId>scarlet-base</artifactId>
+			<version>0.1.0-ALPHA</version>
+			<systemPath>${env.REPOSITORIES}\org.diverproject\scarlet\scarlet-base\pom.xml</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>org.diverproject</groupId>
+			<artifactId>scarlet-logger</artifactId>
+			<version>0.1.0-ALPHA</version>
+			<systemPath>${env.REPOSITORIES}\org.diverproject\scarlet\scarlet-logger\pom.xml</systemPath>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -94,10 +148,11 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.1</version>
+				<version>${maven.build.version}</version>
 				<configuration>
 					<source>${java.version}</source>
 					<target>${java.version}</target>
+					<encoding>${project.build.sourceEncoding}</encoding>
 				</configuration>
 			</plugin>
 		</plugins>

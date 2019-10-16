@@ -49,6 +49,15 @@
 
 # Logs
 
+## 2019-10-16
+
+### 0.1.1.6
+- Added pom maven settings:
+    - 'url', 'organization.*'.
+    - Properties to set build encode, junit/maven-build version.
+    - JUnit dependencies.
+    - Scarlet local dependencies 'scarlet-base' and 'scarlet-logger'.
+
 ## 2019-10-07
 
 ### 0.1.1.5
