@@ -51,6 +51,9 @@
 
 ## 2019-10-16
 
+### 0.1.2.8
+- Removed EcommerceLoggers and EcommerceLogger because will be used Log4J.
+
 ### 0.1.2.7
 - Fixed pom maven 'artifactId' of 'commerce' to 'ecommerce-server'.
 

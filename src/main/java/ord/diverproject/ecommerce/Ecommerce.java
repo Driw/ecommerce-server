@@ -1,9 +1,10 @@
 package ord.diverproject.ecommerce;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ord.diverproject.ecommerce.config.EcommerceSettings;
-import ord.diverproject.ecommerce.logger.EcommerceLoggers;
 
 public class Ecommerce
 {
@@ -11,8 +12,7 @@ public class Ecommerce
 
 	@Autowired
 	private EcommerceSettings ecommerceSettings;
-	@Autowired
-	private EcommerceLoggers ecommerceLoggers;
+	private Logger ecommerceLoggers = LoggerFactory.getLogger(Ecommerce.class);
 
 	private Ecommerce()
 	{
@@ -30,7 +30,7 @@ public class Ecommerce
 		return this.ecommerceSettings;
 	}
 
-	public EcommerceLoggers getEcommerceLoggers()
+	public Logger getEcommerceLoggers()
 	{
 		return this.ecommerceLoggers;
 	}
