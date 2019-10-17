@@ -1,5 +1,6 @@
 package ord.diverproject.ecommerce.webservice;
 
+import ord.diverproject.ecommerce.dto.ProviderDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -8,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import ord.diverproject.ecommerce.model.Provider;
 import ord.diverproject.ecommerce.service.ProviderService;
 import ord.diverproject.ecommerce.utils.EcommerceUtils;
 
@@ -21,13 +21,13 @@ public class ProviderWebservice
 	private ProviderService providerService;
 
 	@RequestMapping(value = PATH, method = RequestMethod.POST)
-	public ResponseEntity<WebserviceResponse<Provider>> onProviderAdd(@RequestBody Provider provider)
+	public ResponseEntity<WebserviceResponse<ProviderDTO>> onProviderAdd(@RequestBody ProviderDTO provider)
 	{
 		long start = System.currentTimeMillis();
 		provider = this.providerService.add(provider);
 
-		WebserviceResponse<Provider> webserviceResponse = new WebserviceResponse<>();
-		webserviceResponse.setSuccessfully("Provider '%s' added with successfull", provider.getFantasyName());
+		WebserviceResponse<ProviderDTO> webserviceResponse = new WebserviceResponse<>();
+		webserviceResponse.setSuccessfully("Provider '%s' added with successfully", provider.getFantasyName());
 		webserviceResponse.calculateDuration(start);
 		webserviceResponse.setResult(provider);
 
@@ -35,15 +35,15 @@ public class ProviderWebservice
 	}
 
 	@RequestMapping(value = PATH+ "/{idProvider}", method = RequestMethod.PUT)
-	public ResponseEntity<WebserviceResponse<Provider>> onProviderSet(@RequestBody Provider provider, @PathVariable long idProvider)
+	public ResponseEntity<WebserviceResponse<ProviderDTO>> onProviderSet(@RequestBody ProviderDTO provider, @PathVariable long idProvider)
 	{
 		long start = System.currentTimeMillis();
 
 		provider.setId(idProvider);
 		provider = this.providerService.set(provider);
 
-		WebserviceResponse<Provider> webserviceResponse = new WebserviceResponse<>();
-		webserviceResponse.setSuccessfully("Provider '%s' updated with successfull", provider.getFantasyName());
+		WebserviceResponse<ProviderDTO> webserviceResponse = new WebserviceResponse<>();
+		webserviceResponse.setSuccessfully("Provider '%s' updated with successfully", provider.getFantasyName());
 		webserviceResponse.calculateDuration(start);
 		webserviceResponse.setResult(provider);
 
@@ -51,17 +51,17 @@ public class ProviderWebservice
 	}
 
 	@RequestMapping(value = PATH+ "/{idProvider}", method = RequestMethod.GET)
-	public ResponseEntity<WebserviceResponse<Provider>> onProviderSet(@PathVariable long idProvider)
+	public ResponseEntity<WebserviceResponse<ProviderDTO>> onProviderSet(@PathVariable long idProvider)
 	{
 		long start = System.currentTimeMillis();
-		Provider provider = this.providerService.get(idProvider);
+		ProviderDTO provider = this.providerService.get(idProvider);
 
-		WebserviceResponse<Provider> webserviceResponse = new WebserviceResponse<>();
+		WebserviceResponse<ProviderDTO> webserviceResponse = new WebserviceResponse<>();
 		webserviceResponse.calculateDuration(start);
 
 		if (provider != null)
 		{
-			webserviceResponse.setSuccessfully("Provider '%s' getted with successfull", provider.getFantasyName());
+			webserviceResponse.setSuccessfully("Provider '%s' successfully obtained", provider.getFantasyName());
 			webserviceResponse.setResult(provider);
 		}
 
@@ -72,12 +72,12 @@ public class ProviderWebservice
 	}
 
 	@RequestMapping(value = PATH, method = RequestMethod.GET)
-	public ResponseEntity<WebserviceResponse<Iterable<Provider>>> onProviderListAll()
+	public ResponseEntity<WebserviceResponse<Iterable<ProviderDTO>>> onProviderListAll()
 	{
 		long start = System.currentTimeMillis();
-		Iterable<Provider> providers = this.providerService.getAll();
+		Iterable<ProviderDTO> providers = this.providerService.getAll();
 
-		WebserviceResponse<Iterable<Provider>> webserviceResponse = new WebserviceResponse<>();
+		WebserviceResponse<Iterable<ProviderDTO>> webserviceResponse = new WebserviceResponse<>();
 		webserviceResponse.setSuccessfully("Found %d providers", EcommerceUtils.iterableSize(providers));
 		webserviceResponse.calculateDuration(start);
 		webserviceResponse.setResult(providers);
@@ -86,12 +86,12 @@ public class ProviderWebservice
 	}
 
 	@RequestMapping(value = PATH+ "/cnpj/{cnpj}", method = RequestMethod.GET)
-	public ResponseEntity<WebserviceResponse<Iterable<Provider>>> onProviderSearchByCnpj(@PathVariable String cnpj)
+	public ResponseEntity<WebserviceResponse<Iterable<ProviderDTO>>> onProviderSearchByCnpj(@PathVariable String cnpj)
 	{
 		long start = System.currentTimeMillis();
-		Iterable<Provider> providers = this.providerService.getByCnpj(cnpj);
+		Iterable<ProviderDTO> providers = this.providerService.getByCnpj(cnpj);
 
-		WebserviceResponse<Iterable<Provider>> webserviceResponse = new WebserviceResponse<>();
+		WebserviceResponse<Iterable<ProviderDTO>> webserviceResponse = new WebserviceResponse<>();
 		webserviceResponse.setSuccessfully("Found %d providers with CNPJ like '%s'", EcommerceUtils.iterableSize(providers), cnpj);
 		webserviceResponse.calculateDuration(start);
 		webserviceResponse.setResult(providers);
@@ -100,12 +100,12 @@ public class ProviderWebservice
 	}
 
 	@RequestMapping(value = PATH+ "/companyName/{companyName}", method = RequestMethod.GET)
-	public ResponseEntity<WebserviceResponse<Iterable<Provider>>> onProviderSearchByCompanyName(@PathVariable String companyName)
+	public ResponseEntity<WebserviceResponse<Iterable<ProviderDTO>>> onProviderSearchByCompanyName(@PathVariable String companyName)
 	{
 		long start = System.currentTimeMillis();
-		Iterable<Provider> providers = this.providerService.getByCompanyName(companyName);
+		Iterable<ProviderDTO> providers = this.providerService.getByCompanyName(companyName);
 
-		WebserviceResponse<Iterable<Provider>> webserviceResponse = new WebserviceResponse<>();
+		WebserviceResponse<Iterable<ProviderDTO>> webserviceResponse = new WebserviceResponse<>();
 		webserviceResponse.setSuccessfully("Found %d providers with company name like '%s'", EcommerceUtils.iterableSize(providers), companyName);
 		webserviceResponse.calculateDuration(start);
 		webserviceResponse.setResult(providers);
@@ -114,12 +114,12 @@ public class ProviderWebservice
 	}
 
 	@RequestMapping(value = PATH+ "/fantasyName/{fantasyName}", method = RequestMethod.GET)
-	public ResponseEntity<WebserviceResponse<Iterable<Provider>>> onProviderSearchByFatansyName(@PathVariable String fantasyName)
+	public ResponseEntity<WebserviceResponse<Iterable<ProviderDTO>>> onProviderSearchByFantasyName(@PathVariable String fantasyName)
 	{
 		long start = System.currentTimeMillis();
-		Iterable<Provider> providers = this.providerService.getByFantasyName(fantasyName);
+		Iterable<ProviderDTO> providers = this.providerService.getByFantasyName(fantasyName);
 
-		WebserviceResponse<Iterable<Provider>> webserviceResponse = new WebserviceResponse<>();
+		WebserviceResponse<Iterable<ProviderDTO>> webserviceResponse = new WebserviceResponse<>();
 		webserviceResponse.setSuccessfully("Found %d providers with fantasy name like '%s'", EcommerceUtils.iterableSize(providers), fantasyName);
 		webserviceResponse.calculateDuration(start);
 		webserviceResponse.setResult(providers);

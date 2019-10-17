@@ -49,6 +49,11 @@
 
 # Logs
 
+## 2019-10-17
+
+### 0.1.2.9
+- Updated WebserviceProvider and EcommerceProviderService to consume ProviderDTO instead Provider.
+
 ## 2019-10-16
 
 ### 0.1.2.8

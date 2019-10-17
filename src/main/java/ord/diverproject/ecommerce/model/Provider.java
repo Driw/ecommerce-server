@@ -1,54 +1,24 @@
 package ord.diverproject.ecommerce.model;
 
-import static ord.diverproject.ecommerce.Constants.CNPJ_LENGTH;
-import static ord.diverproject.ecommerce.Constants.HIBERNATE_TYPE_DATE;
-import static ord.diverproject.ecommerce.Constants.HIBERNATE_TYPE_TIMESTAMP;
-import static ord.diverproject.ecommerce.Constants.MAX_COMPANY_NAME_LENGTH;
-import static ord.diverproject.ecommerce.Constants.MAX_FANTASY_NAME_LENGTH;
-import static ord.diverproject.ecommerce.Constants.MAX_SITE_URLLEN;
-import static ord.diverproject.ecommerce.Constants.MAX_SPOKESMAN_LENGTH;
-import static ord.diverproject.ecommerce.Constants.MIN_COMPANY_NAME_LENGTH;
-import static ord.diverproject.ecommerce.Constants.MIN_FANTASY_NAME_LENGTH;
-import static ord.diverproject.ecommerce.Constants.PROVIDER_CNPJ_INVALID;
-import static ord.diverproject.ecommerce.Constants.PROVIDER_CNPJ_REQUIRED;
-import static ord.diverproject.ecommerce.Constants.PROVIDER_COMPANY_NAME_INVALID;
-import static ord.diverproject.ecommerce.Constants.PROVIDER_COMPANY_NAME_LENGTH;
-import static ord.diverproject.ecommerce.Constants.PROVIDER_COMPANY_NAME_REQUIRED;
-import static ord.diverproject.ecommerce.Constants.PROVIDER_FANTASY_NAME_INVALID;
-import static ord.diverproject.ecommerce.Constants.PROVIDER_FANTASY_NAME_LENGTH;
-import static ord.diverproject.ecommerce.Constants.PROVIDER_FANTASY_NAME_REQUIRED;
-import static ord.diverproject.ecommerce.Constants.PROVIDER_SITE_URL_INVALID;
-import static ord.diverproject.ecommerce.Constants.PROVIDER_SITE_URL_LENGTH;
-import static ord.diverproject.ecommerce.Constants.PROVIDER_SPOKESMAN_INVALID;
-import static ord.diverproject.ecommerce.Constants.PROVIDER_SPOKESMAN_LENGTH;
-import static ord.diverproject.ecommerce.Constants.REGEX_ALPHA_NUMERIC_REQUIRED;
-import static ord.diverproject.ecommerce.Constants.REGEX_ALPHA_NUMERIC_UNREQUIRED;
-import static ord.diverproject.ecommerce.Constants.REGEX_CPF;
-import static ord.diverproject.ecommerce.Constants.REGEX_OPTIONAL;
-import static ord.diverproject.ecommerce.Constants.REGEX_URL;
+import ord.diverproject.ecommerce.annotation.ConstraintErrorCode;
+import ord.diverproject.ecommerce.dto.ProviderDTO;
+import ord.diverproject.ecommerce.utils.CopyOf;
+import ord.diverproject.ecommerce.utils.EcommerceUtils;
+import org.diverproject.scarlet.util.StringUtils;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
-
-import org.diverproject.scarlet.util.StringUtils;
-
-import ord.diverproject.ecommerce.annotation.ConstraintErrorCode;
-import ord.diverproject.ecommerce.utils.EcommerceUtils;
+import static ord.diverproject.ecommerce.Constants.*;
 
 @Entity
 @Table(name = "providers")
-public class Provider implements Serializable
+public class Provider implements Serializable, CopyOf<ProviderDTO>
 {
 	private static final long serialVersionUID = -8084945663696465193L;
 
@@ -104,6 +74,12 @@ public class Provider implements Serializable
 	{
 		this.setRegister(EcommerceUtils.currentTime());
 		this.setLastUpdate(EcommerceUtils.currentTimestamp());
+	}
+
+	public Provider(ProviderDTO providerDTO)
+	{
+		this();
+		this.copyOf(providerDTO);
 	}
 
 	public long getId()
@@ -194,6 +170,17 @@ public class Provider implements Serializable
 	public void setLastUpdate(Timestamp lastUpdate)
 	{
 		this.lastUpdate = lastUpdate;
+	}
+
+	@Override
+	public void copyOf(ProviderDTO providerDTO)
+	{
+		if (providerDTO.getCnpj() != null)			this.setCnpj(providerDTO.getCnpj());
+		if (providerDTO.getCompanyName() != null)	this.setCompanyName(providerDTO.getCompanyName());
+		if (providerDTO.getFantasyName() != null)	this.setFantasyName(providerDTO.getFantasyName());
+		if (providerDTO.getSpokesman() != null)		this.setSpokesman(providerDTO.getSpokesman());
+		if (providerDTO.isInactive() != null) 		this.setInactive(providerDTO.isInactive());
+		if (providerDTO.getSiteUrl() != null)		this.setSiteUrl(providerDTO.getSiteUrl());
 	}
 
 	@Override

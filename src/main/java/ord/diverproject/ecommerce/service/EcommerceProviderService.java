@@ -1,13 +1,17 @@
 package ord.diverproject.ecommerce.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.stereotype.Component;
-
+import ord.diverproject.ecommerce.dto.ProviderDTO;
 import ord.diverproject.ecommerce.model.Provider;
 import ord.diverproject.ecommerce.model.exception.ProviderException;
 import ord.diverproject.ecommerce.repository.ProviderRepository;
 import ord.diverproject.ecommerce.utils.EcommerceUtils;
+import ord.diverproject.ecommerce.utils.ServiceUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.stereotype.Component;
+
+import java.util.LinkedList;
+import java.util.List;
 
 @Component("providerService")
 public class EcommerceProviderService implements ProviderService
@@ -16,89 +20,102 @@ public class EcommerceProviderService implements ProviderService
 	private ProviderRepository providerRepository;
 
 	@Override
-	public Provider add(Provider provider)
+	public ProviderDTO add(ProviderDTO providerDTO)
 	{
+		Provider provider = new Provider(providerDTO);
+
 		if (!EcommerceUtils.isValidCnpj(provider.getCnpj()))
 			throw ProviderException.newCnpjInvalid(provider);
 
-		if (!this.hasCnpjAvaiable(provider.getCnpj()))
+		if (!this.hasCnpjAvailable(provider.getCnpj()))
 			throw ProviderException.newCnpjUnavaiable(provider);
 
 		try {
-			return this.providerRepository.save(provider);
+
+			provider = this.providerRepository.save(provider);
+			providerDTO.copyOf(provider);
+
+			return providerDTO;
+
 		} catch (DataIntegrityViolationException e) {
 			throw ProviderException.newFailureOnAdd(e, provider);
 		}
 	}
 
 	@Override
-	public Provider set(Provider provider)
+	public ProviderDTO set(ProviderDTO providerDTO)
 	{
-		if (!this.hasCnpjAvaiable(provider))
+		Provider provider = new Provider(providerDTO);
+
+		if (!this.hasCnpjAvailable(provider))
 			throw ProviderException.newCnpjUnavaiable(provider);
 
 		try {
-			return this.providerRepository.findById(provider.getId()).map(p -> {
 
-				if (provider.getCnpj() != null && !EcommerceUtils.isValidCnpj(provider.getCnpj()))
-					throw ProviderException.newCnpjInvalid(provider);
+			provider = this.providerRepository.findById(providerDTO.getId()).map(p -> {
 
-				if (provider.getCnpj() != null)			p.setCnpj(provider.getCnpj());
-				if (provider.getCompanyName() != null)	p.setCompanyName(provider.getCompanyName());
-				if (provider.getFantasyName() != null)	p.setFantasyName(provider.getFantasyName());
-				if (provider.getSpokesman() != null)	p.setSpokesman(provider.getSpokesman());
-				if (provider.isInactive() != null) 		p.setInactive(provider.isInactive());
-				if (provider.getSiteUrl() != null)		p.setSiteUrl(provider.getSiteUrl());
+				p.copyOf(providerDTO);
+
+				if (providerDTO.getCnpj() != null && !EcommerceUtils.isValidCnpj(providerDTO.getCnpj()))
+					throw ProviderException.newCnpjInvalid(p);
 
 				return this.providerRepository.save(p);
 
 			}).orElseGet(() -> {
 				throw ProviderException.newNotExists();
 			});
+
+			return new ProviderDTO(provider);
+
 		} catch (DataIntegrityViolationException e) {
 			throw ProviderException.newFailureOnSet(e, provider);
 		}
 	}
 
 	@Override
-	public Provider get(long idProvider)
+	public ProviderDTO get(long idProvider)
 	{
-		return this.providerRepository.findById(idProvider).orElse(null);
+		Provider provider = this.providerRepository.findById(idProvider).orElse(null);
+
+		return new ProviderDTO(provider);
 	}
 
 	@Override
-	public Iterable<Provider> getByCnpj(String cnpj)
+	public Iterable<ProviderDTO> getByCnpj(String cnpj)
 	{
-		return this.providerRepository.findByCnpjContaining(cnpj);
+		List<ProviderDTO> providers = new LinkedList<>();
+
+		for (Provider provider : this.providerRepository.findByCnpjContaining(cnpj))
+			providers.add(new ProviderDTO(provider));
+
+		return providers;
 	}
 
 	@Override
-	public Iterable<Provider> getByCompanyName(String companyName)
+	public Iterable<ProviderDTO> getByCompanyName(String companyName)
 	{
-		return this.providerRepository.findByCompanyNameContaining(companyName);
+		return ServiceUtils.castIterableToDto(this.providerRepository.findByCompanyNameContaining(companyName), ProviderDTO.class);
 	}
 
 	@Override
-	public Iterable<Provider> getByFantasyName(String fantasyName)
+	public Iterable<ProviderDTO> getByFantasyName(String fantasyName)
 	{
-		return this.providerRepository.findByFantasyNameContaining(fantasyName);
+		return ServiceUtils.castIterableToDto(this.providerRepository.findByFantasyNameContaining(fantasyName), ProviderDTO.class);
 	}
 
-	public boolean hasCnpjAvaiable(String cnpj)
+	private boolean hasCnpjAvailable(String cnpj)
 	{
 		return !this.providerRepository.existsByCnpj(cnpj);
 	}
 
-	public boolean hasCnpjAvaiable(Provider provider)
+	private boolean hasCnpjAvailable(Provider provider)
 	{
 		return !this.providerRepository.existsByCnpjAndIdNot(provider.getCnpj(), provider.getId());
 	}
 
 	@Override
-	public Iterable<Provider> getAll()
+	public Iterable<ProviderDTO> getAll()
 	{
-		Iterable<Provider> providers = this.providerRepository.findAll();
-
-		return providers;
+		return ServiceUtils.castIterableToDto(this.providerRepository.findAll(), ProviderDTO.class);
 	}
 }
