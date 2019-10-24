@@ -49,6 +49,11 @@
 
 # Logs
 
+## 2019-10-24
+
+### 0.1.2.10
+- Added application.yml to replace application.properties and DataConfiguration.
+
 ## 2019-10-17
 
 ### 0.1.2.9
