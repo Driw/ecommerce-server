@@ -51,6 +51,9 @@
 
 ## 2019-10-24
 
+### 0.1.3.11
+- Fixed package name of 'ord.diverproject' to 'org.diverproject'.
+
 ### 0.1.2.11
 - Added cnpj and fantasyName as index on Provider.
 - Added application.yml of build 10.
