@@ -51,6 +51,10 @@
 
 ## 2019-10-24
 
+### 0.1.3.12
+- Removed 'hibernate.hbm2ddl.auto' setting.
+- Added 'spring.datasource.jpa.hibernate.dialect' setting.
+
 ### 0.1.3.11
 - Fixed package name of 'ord.diverproject' to 'org.diverproject'.
 

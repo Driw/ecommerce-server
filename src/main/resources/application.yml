@@ -7,6 +7,10 @@ spring:
     url: jdbc:mysql://localhost:3306/ecommerce?useTimezone=true&serverTimezone=America/Sao_Paulo
     username: ecommerce
     password: ecommerce
+    jpa:
+      hibernate:
+        dialect:
+          PostgreSQLDialect: org.hibernate.dialect.MySQL8Dialect
 
 server:
   port: 80
@@ -16,5 +20,3 @@ hibernate:
   show_sql: true
   generate_ddl: true
   dialect: org.hibernate.dialect.MySQL8Dialect
-  hbm2ddl:
-    auto: create-drop
