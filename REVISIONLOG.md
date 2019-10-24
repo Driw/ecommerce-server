@@ -51,6 +51,10 @@
 
 ## 2019-10-24
 
+### 0.1.2.11
+- Added cnpj and fantasyName as index on Provider.
+- Added application.yml of build 10.
+
 ### 0.1.2.10
 - Added application.yml to replace application.properties and DataConfiguration.
 

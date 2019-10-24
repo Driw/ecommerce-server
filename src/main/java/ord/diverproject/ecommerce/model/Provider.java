@@ -17,7 +17,10 @@ import java.util.Date;
 import static ord.diverproject.ecommerce.Constants.*;
 
 @Entity
-@Table(name = "providers")
+@Table(name = "providers", indexes = {
+	@Index(name = "provider_cnpj", columnList = "cnpj", unique = true),
+	@Index(name = "provider_fantasy_name", columnList = "fantasyName", unique = false)
+})
 public class Provider implements Serializable, CopyOf<ProviderDTO>
 {
 	private static final long serialVersionUID = -8084945663696465193L;
@@ -29,7 +32,7 @@ public class Provider implements Serializable, CopyOf<ProviderDTO>
 	@NotBlank
 	@Pattern(regexp = REGEX_CPF)
 	@ConstraintErrorCode(notBlankCode = PROVIDER_CNPJ_REQUIRED, patternCode = PROVIDER_CNPJ_INVALID)
-	@Column(length = CNPJ_LENGTH, nullable = false, unique = true)
+	@Column(length = CNPJ_LENGTH, nullable = false)
 	private String cnpj;
 
 	@NotBlank
